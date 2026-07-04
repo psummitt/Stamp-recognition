@@ -87,14 +87,23 @@ def find_max_cosine_similarity(vector):
         for (id, name, embedding) in raw_data
     ]
 
+    if not data:
+        return None
+
     # find entity by custom function (e.g. cosine_similarity with given vector)
-    best_match = max(data, key=lambda x: cosine_similarity(x["embedding"], vector))
-    accuracy = cosine_similarity(best_match["embedding"], vector)
-    
-    if accuracy >= 0.85:
+    best_match = None
+    max_similarity = -1.0
+
+    for item in data:
+        sim = cosine_similarity(item["embedding"], vector)
+        if sim is not None and sim > max_similarity:
+            max_similarity = sim
+            best_match = item
+
+    if best_match and max_similarity >= 0.85:
         return {
             "stamp_name": best_match["name"],
-            "accuracy": float(accuracy),
+            "accuracy": float(max_similarity),
         }
 
     return None

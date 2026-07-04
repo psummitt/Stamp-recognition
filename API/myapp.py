@@ -80,7 +80,7 @@ def apply_threshold(image):
 
 
 def invert_image(image):
-    inverted = cv2.bitwise_not = (image)
+    inverted = cv2.bitwise_not(image)
     return inverted
 
 
