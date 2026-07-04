@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import '../models/stamp_result.dart';
+import '../models/history_item.dart';
 import '../services/api_service.dart';
 
 class StampProvider with ChangeNotifier {
@@ -7,6 +8,9 @@ class StampProvider with ChangeNotifier {
   
   Map<String, ImageUploadResult>? _uploadResults;
   Map<String, ImageUploadResult>? get uploadResults => _uploadResults;
+
+  final List<HistoryItem> _history = [];
+  List<HistoryItem> get history => List.unmodifiable(_history);
 
   bool _isLoading = false;
   bool get isLoading => _isLoading;
@@ -21,6 +25,15 @@ class StampProvider with ChangeNotifier {
 
     try {
       _uploadResults = await _apiService.uploadImages(files);
+      
+      // Add to history
+      _uploadResults?.forEach((key, value) {
+        _history.insert(0, HistoryItem(
+          timestamp: DateTime.now(),
+          fileName: key,
+          result: value,
+        ));
+      });
     } catch (e) {
       _error = e.toString();
     } finally {

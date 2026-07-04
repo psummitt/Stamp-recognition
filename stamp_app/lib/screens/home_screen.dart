@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'upload_screen.dart';
 import 'add_stamp_screen.dart';
 import 'help_screen.dart';
+import 'history_screen.dart';
 
 class HomeScreen extends StatelessWidget {
   const HomeScreen({super.key});
@@ -14,8 +15,16 @@ class HomeScreen extends StatelessWidget {
         centerTitle: true,
         actions: [
           IconButton(
+            icon: const Icon(Icons.history),
+            tooltip: 'View Detection History',
+            onPressed: () => Navigator.push(
+              context,
+              MaterialPageRoute(builder: (context) => const HistoryScreen()),
+            ),
+          ),
+          IconButton(
             icon: const Icon(Icons.help_outline),
-            tooltip: 'Help',
+            tooltip: 'App Help and Instructions',
             onPressed: () => Navigator.push(
               context,
               MaterialPageRoute(builder: (context) => const HelpScreen()),
@@ -31,15 +40,18 @@ class HomeScreen extends StatelessWidget {
             crossAxisAlignment: CrossAxisAlignment.stretch,
             children: [
               Semantics(
-                label: 'Project logo',
+                label: 'App Logo showing a stamp scanner icon',
                 image: true,
                 child: const Icon(Icons.qr_code_scanner, size: 100, color: Colors.blue),
               ),
               const SizedBox(height: 32),
-              Text(
-                'Welcome to Flutter Postage Stamp Recognition App',
-                textAlign: TextAlign.center,
-                style: Theme.of(context).textTheme.displayLarge,
+              Semantics(
+                header: true,
+                child: Text(
+                  'Welcome to Flutter Postage Stamp Recognition App',
+                  textAlign: TextAlign.center,
+                  style: Theme.of(context).textTheme.displayLarge,
+                ),
               ),
               const SizedBox(height: 16),
               Text(
@@ -54,6 +66,7 @@ class HomeScreen extends StatelessWidget {
                 'Upload a document to find and identify stamps.',
                 Icons.search,
                 const UploadScreen(),
+                'Find stamps in your images',
               ),
               const SizedBox(height: 16),
               _buildNavButton(
@@ -62,6 +75,16 @@ class HomeScreen extends StatelessWidget {
                 'Register a new stamp in the database.',
                 Icons.add_a_photo,
                 const AddStampScreen(),
+                'Register a new stamp template',
+              ),
+              const SizedBox(height: 16),
+              _buildNavButton(
+                context,
+                'View History',
+                'See your previous detection results.',
+                Icons.history,
+                const HistoryScreen(),
+                'Open history of detected stamps',
               ),
             ],
           ),
@@ -76,12 +99,16 @@ class HomeScreen extends StatelessWidget {
     String subtitle,
     IconData icon,
     Widget screen,
+    String accessibilityHint,
   ) {
     return Semantics(
       button: true,
-      label: '$title. $subtitle',
+      label: title,
+      value: subtitle,
+      hint: accessibilityHint,
       child: Card(
         elevation: 4,
+        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
         child: InkWell(
           onTap: () => Navigator.push(
             context,
@@ -92,7 +119,9 @@ class HomeScreen extends StatelessWidget {
             padding: const EdgeInsets.all(20.0),
             child: Row(
               children: [
-                Icon(icon, size: 40, color: Theme.of(context).colorScheme.primary),
+                ExcludeSemantics(
+                  child: Icon(icon, size: 40, color: Theme.of(context).colorScheme.primary),
+                ),
                 const SizedBox(width: 20),
                 Expanded(
                   child: Column(
@@ -103,7 +132,9 @@ class HomeScreen extends StatelessWidget {
                     ],
                   ),
                 ),
-                const Icon(Icons.arrow_forward_ios),
+                const ExcludeSemantics(
+                  child: Icon(Icons.arrow_forward_ios),
+                ),
               ],
             ),
           ),

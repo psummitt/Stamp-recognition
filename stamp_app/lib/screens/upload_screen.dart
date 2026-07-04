@@ -71,18 +71,24 @@ class _UploadScreenState extends State<UploadScreen> {
             if (provider.isLoading)
               const Center(child: CircularProgressIndicator())
             else ...[
-              ElevatedButton.icon(
+            Tooltip(
+              message: 'Select a document image from your gallery',
+              child: ElevatedButton.icon(
                 onPressed: _pickImage,
                 icon: const Icon(Icons.image),
                 label: const Text('Select Image'),
               ),
+            ),
               const SizedBox(height: 8),
-              ElevatedButton.icon(
-                onPressed: _selectedImage == null ? null : _upload,
-                icon: const Icon(Icons.cloud_upload),
-                label: const Text('Upload and Detect'),
-                style: ElevatedButton.styleFrom(
-                  backgroundColor: Theme.of(context).colorScheme.primaryContainer,
+              Tooltip(
+                message: 'Upload selected image for stamp detection',
+                child: ElevatedButton.icon(
+                  onPressed: _selectedImage == null ? null : _upload,
+                  icon: const Icon(Icons.cloud_upload),
+                  label: const Text('Upload and Detect'),
+                  style: ElevatedButton.styleFrom(
+                    backgroundColor: Theme.of(context).colorScheme.primaryContainer,
+                  ),
                 ),
               ),
             ],

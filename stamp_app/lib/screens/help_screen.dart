@@ -46,22 +46,25 @@ class HelpScreen extends StatelessWidget {
   Widget _buildHelpSection(BuildContext context, String title, String content) {
     return Padding(
       padding: const EdgeInsets.symmetric(vertical: 16.0),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          Text(
-            title,
-            style: Theme.of(context).textTheme.titleLarge?.copyWith(
-                  color: Theme.of(context).colorScheme.primary,
-                  fontWeight: FontWeight.bold,
-                ),
-          ),
-          const SizedBox(height: 8),
-          Text(
-            content,
-            style: Theme.of(context).textTheme.bodyLarge,
-          ),
-        ],
+      child: Semantics(
+        container: true,
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Text(
+              title,
+              style: Theme.of(context).textTheme.titleLarge?.copyWith(
+                    color: Theme.of(context).colorScheme.primary,
+                    fontWeight: FontWeight.bold,
+                  ),
+            ),
+            const SizedBox(height: 8),
+            Text(
+              content,
+              style: Theme.of(context).textTheme.bodyLarge,
+            ),
+          ],
+        ),
       ),
     );
   }
