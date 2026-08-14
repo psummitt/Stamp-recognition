@@ -1,3 +1,7 @@
+// Force normalization of Android preference locations to resolve conflicts in machine environment
+System.setProperty("ANDROID_USER_HOME", "C:/Users/summi/.android")
+System.setProperty("ANDROID_PREFS_ROOT", "C:/Users/summi/.android")
+
 pluginManagement {
     val flutterSdkPath =
         run {
@@ -19,8 +23,8 @@ pluginManagement {
 
 plugins {
     id("dev.flutter.flutter-plugin-loader") version "1.0.0"
-    id("com.android.application") version "8.5.2" apply false
-    id("org.jetbrains.kotlin.android") version "2.0.21" apply false
+    id("com.android.application") version "8.11.1" apply false
+    id("org.jetbrains.kotlin.android") version "2.2.20" apply false
 }
 
 include(":app")
