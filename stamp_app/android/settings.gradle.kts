@@ -1,7 +1,3 @@
-// Force normalization of Android preference locations to resolve conflicts in machine environment
-System.setProperty("ANDROID_USER_HOME", "C:/Users/summi/.android")
-System.setProperty("ANDROID_PREFS_ROOT", "C:/Users/summi/.android")
-
 pluginManagement {
     val flutterSdkPath =
         run {
