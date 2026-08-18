@@ -1,9 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'providers/stamp_provider.dart';
-import 'screens/home_screen.dart';
+import 'package:stamp_app/providers/stamp_provider.dart';
+import 'package:stamp_app/screens/home_screen.dart';
 
 void main() {
+  WidgetsFlutterBinding.ensureInitialized();
   runApp(
     MultiProvider(
       providers: [
@@ -19,6 +20,13 @@ class StampApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    const textTheme = TextTheme(
+      displayLarge: TextStyle(fontSize: 32, fontWeight: FontWeight.bold),
+      bodyLarge: TextStyle(fontSize: 18),
+      bodyMedium: TextStyle(fontSize: 16),
+      titleLarge: TextStyle(fontSize: 20, fontWeight: FontWeight.w600),
+    );
+
     return MaterialApp(
       title: 'Flutter Postage Stamp Recognition App',
       theme: ThemeData(
@@ -27,12 +35,7 @@ class StampApp extends StatelessWidget {
           seedColor: Colors.blue,
           brightness: Brightness.light,
         ),
-        // Accessibility: ensure readable text sizes
-        textTheme: const TextTheme(
-          displayLarge: TextStyle(fontSize: 32, fontWeight: FontWeight.bold),
-          bodyLarge: TextStyle(fontSize: 18),
-          bodyMedium: TextStyle(fontSize: 16),
-        ),
+        textTheme: textTheme,
       ),
       darkTheme: ThemeData(
         useMaterial3: true,
@@ -40,6 +43,7 @@ class StampApp extends StatelessWidget {
           seedColor: Colors.blue,
           brightness: Brightness.dark,
         ),
+        textTheme: textTheme,
       ),
       home: const HomeScreen(),
       debugShowCheckedModeBanner: false,
